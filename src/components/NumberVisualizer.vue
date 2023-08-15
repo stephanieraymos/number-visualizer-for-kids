@@ -44,13 +44,15 @@
                     A quarter is worth 25 cents
                 </p>
                 <p v-else-if="imageToDisplay.name === 'Marble'">
-                    A marble is a toy
+                    The marble was invented in 1846
                 </p>
-                <p v-else-if="imageToDisplay.name === 'dog'">A dog is a pet</p>
-                <p v-if="imageToDisplay.name === 'cat'">
+                <p v-else-if="imageToDisplay.name === 'Dog'">
+                    Dogs have 42 muscles. Humans have 46.
+                </p>
+                <p v-if="imageToDisplay.name === 'Cat'">
                     Cats are majestic, magical creatures
                 </p>
-                <p v-if="imageToDisplay.name === 'cat' && number > 100">
+                <p v-if="imageToDisplay.name === 'Cat' && number > 100">
                     Wow! More than 100 cats!? That's a lot of love!
                 </p>
 
@@ -62,8 +64,8 @@
                         : ''
                 }}
             </p> -->
-                <p v-else-if="imageToDisplay.name === 'bird'">
-                    A bird is a pet
+                <p v-else-if="imageToDisplay.name === 'Bird'">
+                    Most birds can fly, but some, like penguins cannot
                 </p>
             </div>
         </div>
@@ -96,7 +98,7 @@ const imageToDisplay = ref({
     src: require('../assets/cat.png'),
     alt: 'Cat',
     size: 'large',
-    name: 'cat',
+    name: 'Cat',
 });
 // why is the src above wrong
 // the src above is wrong because it is not in the public folder
