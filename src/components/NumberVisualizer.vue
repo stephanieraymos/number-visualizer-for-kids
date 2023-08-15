@@ -1,8 +1,27 @@
 <template>
-    <div class="number-container">
-        <input type="number" v-model="number" />
-        <button @click="setTheNumber">Calculate</button>
-        <p>Result: {{ result }}</p>
+    <div class="container">
+        <div class="number-input-container">
+            <input type="number" v-model="number" />
+            <button @click="setTheNumber">Calculate</button>
+        </div>
+
+        <!-- Choose an image to display -->
+        <select
+            name="image"
+            id="selectedImage"
+            v-model="selected"
+            @change="setTheImage(selected)"
+        >
+            <option disabled value="">Select an object to display</option>
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="bird">Bird</option>
+            <option value="penny">Penny</option>
+            <option value="nickle">Nickle</option>
+            <option value="dime">Dime</option>
+            <option value="quarter">Quarter</option>
+            <option value="marble">Marble</option>
+        </select>
         <div class="result-container">
             <!-- <span v-for="number " :key="number">
                 <span v-for="image in page" :key="image.alt">
@@ -18,25 +37,6 @@
             </span>
         </div>
     </div>
-    <div>
-        <!-- Choose an image to display -->
-        <select
-            name="image"
-            id="selectedImage"
-            v-model="selected"
-            @change="setTheImage(selected)"
-        >
-            <option disabled value="">Please select one</option>
-            <option value="cat">Cat</option>
-            <option value="dog">Dog</option>
-            <option value="bird">Bird</option>
-            <option value="penny">Penny</option>
-            <option value="nickle">Nickle</option>
-            <option value="dime">Dime</option>
-            <option value="quarter">Quarter</option>
-            <option value="marble">Marble</option>
-        </select>
-    </div>
 </template>
 
 <script setup>
@@ -47,7 +47,7 @@ const selected = ref('cat'); // Default selected option
 const imageToDisplay = ref({
     src: require('../assets/cat.png'),
     alt: 'Cat',
-    size: 'small',
+    size: 'large',
 });
 // why is the src above wrong
 // the src above is wrong because it is not in the public folder
@@ -65,13 +65,13 @@ const setTheImage = selectedImage => {
         case 'marble':
             size = 'small';
             break;
-        case 'cat':
-        case 'dog':
-        case 'bird':
         case 'nickle':
             size = 'medium';
             break;
         case 'quarter':
+        case 'cat':
+        case 'dog':
+        case 'bird':
             size = 'large';
             break;
         default:
@@ -83,7 +83,6 @@ const setTheImage = selectedImage => {
         alt: selectedImage.charAt(0).toUpperCase() + selectedImage.slice(1),
         size: size,
     };
-    console.log('image.src was set to: ', imageToDisplay.value.src);
 };
 
 const getObjectClass = object => {
@@ -92,17 +91,27 @@ const getObjectClass = object => {
 </script>
 
 <style scoped>
-.number-container {
+.container {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 2rem;
-    background: #09001e;
+}
+.number-input-container {
+    margin-right: 10px;
 }
 .result-container {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: var(--light-color-3);
+    min-height: 80vh;
 }
 .item-shown {
     height: 50px;
