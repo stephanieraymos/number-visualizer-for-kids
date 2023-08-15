@@ -22,19 +22,21 @@
             <option value="quarter">Quarter</option>
             <option value="marble">Marble</option>
         </select>
-        <div class="result-container">
-            <!-- <span v-for="number " :key="number">
-                <span v-for="image in page" :key="image.alt">
-                    <img :src="image.src" :alt="image.alt" class="item-shown" />
+        <div v-if="number <= 1000">
+            <div class="result-container">
+                <span v-for="singleItem in number" :key="singleItem">
+                    <img
+                        :src="imageToDisplay.src"
+                        :alt="imageToDisplay.alt"
+                        :class="getObjectClass(imageToDisplay)"
+                    />
                 </span>
-            </span> -->
-            <span v-for="singleItem in number" :key="singleItem">
-                <img
-                    :src="imageToDisplay.src"
-                    :alt="imageToDisplay.alt"
-                    :class="getObjectClass(imageToDisplay)"
-                />
-            </span>
+            </div>
+        </div>
+        <div v-else>
+            <h2 style="color: white">
+                Number is too large to display, try a number less than 1000.
+            </h2>
         </div>
     </div>
 </template>
