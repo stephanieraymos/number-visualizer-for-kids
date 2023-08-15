@@ -34,6 +34,10 @@ export default {
     --color-red: #770202;
     --color-green: #0b7702;
     --color-blue: #020277;
+    --color-yellow: #777002;
+    --color-orange: #774a02;
+    --color-purple: #532f5e;
+    --color-pink: #77024f;
 
     background-color: var(--dark-color-1);
 }

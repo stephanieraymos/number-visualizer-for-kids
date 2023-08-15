@@ -1,32 +1,78 @@
 <template>
     <div class="container">
-        <div class="number-input-container">
-            <input type="number" v-model="number" />
-            <button @click="setTheNumber">Calculate</button>
-        </div>
+        <div class="top-section">
+            <div>
+                <input type="number" v-model="number" />
+                <button @click="setTheNumber">Calculate</button>
+            </div>
 
-        <!-- Choose an image to display -->
-        <select
-            name="image"
-            id="selectedImage"
-            v-model="selected"
-            @change="setTheImage(selected)"
-        >
-            <option disabled value="">Select an object to display</option>
-            <option value="cat">Cat</option>
-            <option value="dog">Dog</option>
-            <option value="bird">Bird</option>
-            <option value="penny">Penny</option>
-            <option value="nickle">Nickle</option>
-            <option value="dime">Dime</option>
-            <option value="quarter">Quarter</option>
-            <option value="marble">Marble</option>
-        </select>
+            <!-- Choose an image to display -->
+            <select
+                name="image"
+                id="selectedImage"
+                v-model="selected"
+                @change="setTheImage(selected)"
+            >
+                <option disabled value="">Select an object to display</option>
+                <option value="cat">Cat</option>
+                <option value="dog">Dog</option>
+                <option value="bird">Bird</option>
+                <option value="penny">Penny</option>
+                <option value="nickle">Nickle</option>
+                <option value="dime">Dime</option>
+                <option value="quarter">Quarter</option>
+                <option value="marble">Marble</option>
+            </select>
+
+            <div class="fun-fact-container">
+                <h3>Fun Facts</h3>
+                <p>
+                    The number you entered is
+                    <span v-if="number % 2 === 0">even</span>
+                    <span v-else>odd</span>
+                </p>
+                <p v-if="imageToDisplay.name === 'Dime'">
+                    A dime is worth 10 cents
+                </p>
+                <p v-else-if="imageToDisplay.name === 'Nickle'">
+                    A nickle is worth 5 cents
+                </p>
+                <p v-else-if="imageToDisplay.name === 'Penny'">
+                    A penny is worth 1 cent
+                </p>
+                <p v-else-if="imageToDisplay.name === 'Quarter'">
+                    A quarter is worth 25 cents
+                </p>
+                <p v-else-if="imageToDisplay.name === 'Marble'">
+                    A marble is a toy
+                </p>
+                <p v-else-if="imageToDisplay.name === 'dog'">A dog is a pet</p>
+                <p v-if="imageToDisplay.name === 'cat'">
+                    Cats are majestic, magical creatures
+                </p>
+                <p v-if="imageToDisplay.name === 'cat' && number > 100">
+                    Wow! More than 100 cats!? That's a lot of love!
+                </p>
+
+                <!-- <p v-else-if="imageToDisplay.name === 'cat'">
+                Cats are magestic, magical creatures
+                {{
+                    number > 100
+                        ? "Wow, more than 100 cats! That's a lot of love!"
+                        : ''
+                }}
+            </p> -->
+                <p v-else-if="imageToDisplay.name === 'bird'">
+                    A bird is a pet
+                </p>
+            </div>
+        </div>
         <div v-if="number <= 1000">
             <div class="result-container">
                 <span v-for="singleItem in number" :key="singleItem">
                     <img
                         :src="imageToDisplay.src"
+                        :name="imageToDisplay.alt"
                         :alt="imageToDisplay.alt"
                         :class="getObjectClass(imageToDisplay)"
                     />
@@ -50,6 +96,7 @@ const imageToDisplay = ref({
     src: require('../assets/cat.png'),
     alt: 'Cat',
     size: 'large',
+    name: 'cat',
 });
 // why is the src above wrong
 // the src above is wrong because it is not in the public folder
@@ -84,6 +131,7 @@ const setTheImage = selectedImage => {
         src: require(`../assets/${selectedImage}.png`),
         alt: selectedImage.charAt(0).toUpperCase() + selectedImage.slice(1),
         size: size,
+        name: selectedImage.charAt(0).toUpperCase() + selectedImage.slice(1),
     };
 };
 
@@ -99,8 +147,17 @@ const getObjectClass = object => {
     -moz-osx-font-smoothing: grayscale;
     padding: 2rem;
 }
-.number-input-container {
-    margin-right: 10px;
+.fun-fact-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: var(--color-purple);
+    color: white;
+    flex-basis: 50%;
+}
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .result-container {
     margin-top: 20px;
